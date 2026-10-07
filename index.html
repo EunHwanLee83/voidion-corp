@@ -14,6 +14,7 @@
 <meta name="description" content="VOIDION is an independent game studio in South Korea.">
 <meta property="og:title" content="VOIDION">
 <meta property="og:description" content="Independent game studio in South Korea.">
+<meta property="og:image" content="https://voidion.kr/logo.webp">
 <meta property="og:type" content="website">
 <link rel="icon" href="https://game.voidion.kr/img/icon.jpg">
 
@@ -34,8 +35,16 @@
   }
   .wrap { max-width:680px; margin:0 auto; }
 
-  h1 { font-size:2.1rem; letter-spacing:.14em; margin:0 0 6px; }
-  .tag { font-size:.95rem; opacity:.75; margin:0 0 40px; }
+  /* 로고 — 원본이 <b>어두운 배경이 구워진</b> 가로 배너라 투명 PNG 가 아니다.
+     ⚠️ 그래서 밝은 테마에서도 그 블록이 그대로 보인다(의도) — 배경색을 맞추려 하지 말 것.
+     ⚠️ 아래 흰 띠가 들어 있어 라운드 처리만 하고 자르지 않는다. */
+  .logo { display:block; width:100%; max-width:520px; height:auto; margin:0 auto 14px;
+          border-radius:12px; box-shadow:0 3px 14px rgba(0,0,0,.14); }
+
+  /* 로고가 회사명을 담고 있으므로 h1 은 화면에서 숨기고 접근성·검색용으로만 남긴다. */
+  h1 { position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+       overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+  .tag { font-size:.95rem; opacity:.75; margin:0 0 40px; text-align:center; }
   h2 { font-size:1.05rem; margin:40px 0 12px; letter-spacing:.02em; }
 
   .card {
@@ -46,6 +55,34 @@
   .card .sub { font-size:.84rem; opacity:.7; margin:0 0 10px; }
   .card p { margin:0 0 10px; }
   .card .meta { font-size:.84rem; opacity:.8; margin:0; }
+
+  /* 앱 아이콘 + 제목을 한 줄로. 아이콘이 없는 작품(White Breath)은 이 블록을 안 쓴다. */
+  .head { display:flex; align-items:center; gap:14px; margin-bottom:10px; flex-wrap:wrap; }
+  .head img { width:62px; height:62px; flex:0 0 62px; border-radius:14px;
+              box-shadow:0 2px 8px rgba(0,0,0,.18); }
+  .head h3, .head .sub { margin:0; }
+
+  /* 스토어 버튼 — <b>제목 줄 오른쪽 끝</b>으로 민다(margin-left:auto).
+     ⚠️ 좁은 화면에서는 `.head` 의 flex-wrap 으로 아래 줄에 떨어진다 — 그게 의도다. */
+  .store {
+    margin-left:auto; flex:0 0 auto; white-space:nowrap; text-decoration:none;
+    font-size:.82rem; font-weight:600; padding:8px 14px; border-radius:999px;
+    background:#2d5fbf; color:#fff !important;
+    box-shadow:0 2px 8px rgba(45,95,191,.32);
+  }
+  .store:hover { background:#24509f; }
+
+  /* 스크린샷 — <b>가로 스크롤</b>이다(세로로 쌓으면 5장이 페이지를 삼킨다).
+     ⚠️ 모바일에서 손가락으로 쓸어 넘기는 것이 기본 동작이라 화살표 UI 를 두지 않았다.
+     ⚠️ width/height 를 HTML 에 적어 두었으니 비율을 CSS 로 덮지 말 것(레이아웃이 튄다). */
+  .shots { display:flex; gap:10px; overflow-x:auto; padding:4px 0 10px;
+           scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+  .shots img { height:300px; width:auto; flex:0 0 auto; border-radius:10px;
+               scroll-snap-align:start; box-shadow:0 2px 10px rgba(0,0,0,.16); }
+
+  /* 가로 이미지 한 장짜리(White Breath) — 카드 폭을 채운다. */
+  .hero { display:block; width:100%; height:auto; border-radius:10px; margin:0 0 12px;
+          box-shadow:0 2px 10px rgba(0,0,0,.16); }
 
   table.biz { border-collapse:collapse; width:100%; font-size:.8rem; margin:10px 0; }
   table.biz th, table.biz td { border:1px solid #0000001f; padding:6px 10px; text-align:left; }
@@ -58,19 +95,38 @@
 <body>
 <div class="wrap">
 
+  <img class="logo" src="logo.webp" alt="VOIDION" width="2000" height="1155">
   <h1>VOIDION</h1>
   <p class="tag">Independent game studio in South Korea · 대한민국의 독립 게임 스튜디오</p>
 
   <h2>Games</h2>
 
   <div class="card">
-    <h3>Nom Nom Mimic <span style="font-weight:400;opacity:.65">· 미믹 키우기</span></h3>
-    <p class="sub">Mobile idle collection RPG — in service</p>
+    <div class="head">
+      <img src="img/mimic_icon.webp" alt="" width="600" height="600">
+      <div>
+        <h3>Nom Nom Mimic <span style="font-weight:400;opacity:.65">· 미믹 키우기</span></h3>
+        <p class="sub">Mobile idle collection RPG — in service</p>
+      </div>
+      <a class="store" href="https://m.onestore.co.kr/v2/ko-kr/app/0001008300"
+         target="_blank" rel="noopener">Get it on ONE Store</a>
+    </div>
     <p>A mimic awakens in a discarded treasure chest and climbs an endless dungeon toward the throne.
        It fights on its own, so the hunt continues while the app is closed. Collect 100 allies,
        100 skills and 172 mimic forms along the way.</p>
+
+    <div class="shots">
+      <!-- ⚠️ 표시 순서는 파일 번호와 <b>다르다</b> (2026-10-08 사용자 지정 — 1번을 맨 뒤로).
+           파일명을 바꾸지 말고 이 줄 순서로만 조정할 것. -->
+      <img src="img/mimic_2.webp" alt="Idle your way to Dungeon King" width="924" height="2000" loading="lazy">
+      <img src="img/mimic_3.webp" alt="Auto battle and hands-on action" width="924" height="2000" loading="lazy">
+      <img src="img/mimic_4.webp" alt="Become the Dungeon King" width="924" height="2000" loading="lazy">
+      <img src="img/mimic_5.webp" alt="Collect mimics full of personality" width="924" height="2000" loading="lazy">
+      <img src="img/mimic_1.webp" alt="Endless dungeons, endless stories" width="924" height="2000" loading="lazy">
+    </div>
+
     <p class="meta">
-      Live on <a href="https://m.onestore.co.kr/" rel="noopener">ONE Store</a> and Apps&nbsp;in&nbsp;Toss ·
+      Live on <a href="https://m.onestore.co.kr/v2/ko-kr/app/0001008300" target="_blank" rel="noopener">ONE Store</a> and Apps&nbsp;in&nbsp;Toss ·
       App Store release in preparation · Available in 9 languages ·
       <a href="https://game.voidion.kr/">Game information</a>
     </p>
@@ -79,6 +135,8 @@
   <div class="card">
     <h3>White Breath</h3>
     <p class="sub">Cozy co-op exploration game for Steam — in development</p>
+    <img class="hero" src="img/whitebreath_1.webp" alt="White Breath"
+         width="1551" height="1014" loading="lazy">
     <p>Build a shelter in the snow with a companion creature, then set out with a friend into a frozen
        world. Base building, repeatable expeditions and a story campaign.</p>
   </div>
